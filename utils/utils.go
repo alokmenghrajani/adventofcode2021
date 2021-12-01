@@ -81,8 +81,13 @@ func MapFindMin(m interface{}) interface{} {
 	return minK
 }
 
-func Readfile(day int) string {
-	filename := fmt.Sprintf("day%02d/input.txt", day)
+func Readfile(year, day int) string {
+	filename := ""
+	if year == 2021 {
+		filename = fmt.Sprintf("day%02d/input.txt", day)
+	} else {
+		filename = fmt.Sprintf("%d/year%dday%02d/input.txt", year, year, day)
+	}
 	file, err := os.Open(filename)
 	PanicOnErr(err)
 	defer file.Close()

@@ -3,7 +3,7 @@ package day01
 import (
 	"testing"
 
-	"github.com/alecthomas/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPart1(t *testing.T) {
