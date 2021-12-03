@@ -147,10 +147,32 @@ func ParseToStruct(re *regexp.Regexp, input string, target interface{}) bool {
 	return true
 }
 
+func MustParseToStruct(re *regexp.Regexp, input string, target interface{}) {
+	if !ParseToStruct(re, input, target) {
+		panic(fmt.Errorf("failed to parse: %s", input))
+	}
+}
+
 func CharToLower(c byte) byte {
 	return strings.ToLower(string(c))[0]
 }
 
 func CharToUpper(c byte) byte {
 	return strings.ToUpper(string(c))[0]
+}
+
+func Contains(haystack []string, needle string) bool {
+	for _, s := range haystack {
+		if s == needle {
+			return true
+		}
+	}
+	return false
+}
+
+func Abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
