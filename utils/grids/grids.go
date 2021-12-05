@@ -16,6 +16,10 @@ type Grid struct {
 
 func NewGrid(empty interface{}) *Grid {
 	return &Grid{
+		minX:  utils.MaxInt,
+		maxX:  utils.MinInt,
+		minY:  utils.MaxInt,
+		maxY:  utils.MinInt,
 		data:  map[string]interface{}{},
 		empty: empty,
 	}
