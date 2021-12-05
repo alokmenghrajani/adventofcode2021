@@ -13,6 +13,8 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day03"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day04"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day05"
+	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day06"
+	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day08"
 	"github.com/alokmenghrajani/adventofcode2021/day01"
 	"github.com/alokmenghrajani/adventofcode2021/day02"
 	"github.com/alokmenghrajani/adventofcode2021/day03"
@@ -61,6 +63,12 @@ func main() {
 	case 201905:
 		fmt.Printf("part 1: %s\n", year2019day05.Part(utils.Readfile(2019, 5), "1"))
 		fmt.Printf("part 2: %s\n", year2019day05.Part(utils.Readfile(2019, 5), "5"))
+	case 201906:
+		fmt.Printf("part 1: %d\n", year2019day06.Part1(utils.Readfile(2019, 6)))
+		fmt.Printf("part 2: %d\n", year2019day06.Part2(utils.Readfile(2019, 6)))
+	case 201908:
+		fmt.Printf("part 1: %d\n", year2019day08.Part1(utils.Readfile(2019, 8)))
+		fmt.Printf("part 2: %s\n", year2019day08.Part2(25, 6, utils.Readfile(2019, 8)))
 	case 201806:
 		fmt.Printf("part 1: %d\n", year2018day06.Part1(utils.Readfile(2018, 6)))
 		fmt.Printf("part 2: %d\n", year2018day06.Part2(utils.Readfile(2018, 6)))
@@ -69,7 +77,7 @@ func main() {
 		fmt.Printf("part 2: %s\n", year2018day13.Part2(utils.Readfile(2018, 13)))
 	case 201817:
 		fmt.Printf("part 1: %d\n", year2018day17.Part1(utils.Readfile(2018, 17)))
-		//fmt.Printf("part 2: %s\n", year2018day17.Part2(utils.Readfile(2018, 17)))
+		fmt.Printf("part 2: %d\n", year2018day17.Part2(utils.Readfile(2018, 17)))
 	case 201824:
 		fmt.Printf("part 1: %d\n", year2018day24.Part1(utils.Readfile(2018, 24)))
 		fmt.Printf("part 2: %d\n", year2018day24.Part2(utils.Readfile(2018, 24)))
@@ -81,7 +89,7 @@ func main() {
 // Reads day from os.Args.
 func day() int {
 	if len(os.Args) == 1 {
-		return 5
+		return 201908
 	}
 	day := utils.Atoi(os.Args[1], -1)
 	return day

@@ -7,8 +7,13 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/utils/grids"
 )
 
+type cell struct {
+	l, r bool
+	c    byte
+}
+
 func Part1(input string) int {
-	g := grids.NewGrid('.')
+	g := grids.NewGrid(cell{l: false, r: false, c: '.'})
 	for _, line := range strings.Split(input, "\n") {
 		pieces := strings.Split(line, ", ")
 		var xMin, xMax, yMin, yMax int
@@ -29,86 +34,178 @@ func Part1(input string) int {
 		}
 		for i := xMin; i <= xMax; i++ {
 			for j := yMin; j <= yMax; j++ {
-				g.Set(i, j, '#')
+				g.Set(i, j, cell{l: true, r: true, c: '#'})
 			}
 		}
 	}
 
-	putWater(g, 500, 0)
-	g.Print()
-
-	r := 0
-	xMin, xMax := g.SizeX()
 	yMin, yMax := g.SizeY()
+
+	g.Set(500, 0, cell{c: '|'})
+	putWater(g)
+
+	xMin, xMax := g.SizeX()
+	r := 0
 	for i := xMin; i <= xMax; i++ {
 		for j := yMin; j <= yMax; j++ {
-			if g.Get(i, j) == '~' || g.Get(i, j) == '|' {
+			if g.Get(i, j).(cell).c == '~' || g.Get(i, j).(cell).c == '|' {
 				r++
 			}
 		}
 	}
-
-	return r - 1
+	return r
 }
 
-func putWater(g *grids.Grid, x, y int) {
-	_, maxY := g.SizeY()
-	if y > maxY {
-		// we are done
-		return
-	}
-
-	if g.Get(x, y+1) == '.' {
-		// we have a space under us
-		g.Set(x, y, '|')
-		putWater(g, x, y+1)
-	}
-	if g.Get(x, y+1) == '~' || g.Get(x, y+1) == '#' {
-		if isSolid(g, x, y, -1) && isSolid(g, x, y, 1) {
-			// no overflow
-			fill(g, x, y, -1)
-			fill(g, x, y, 1)
+func Part2(input string) int {
+	g := grids.NewGrid(cell{l: false, r: false, c: '.'})
+	for _, line := range strings.Split(input, "\n") {
+		pieces := strings.Split(line, ", ")
+		var xMin, xMax, yMin, yMax int
+		if pieces[0][0] == 'x' {
+			t := utils.MustAtoi(pieces[0][2:])
+			xMin = t
+			xMax = t
+			morePieces := strings.Split(pieces[1][2:], "..")
+			yMin = utils.MustAtoi(morePieces[0])
+			yMax = utils.MustAtoi(morePieces[1])
 		} else {
-			// overflow
-			overflow(g, x, y, -1)
-			overflow(g, x, y, 1)
+			t := utils.MustAtoi(pieces[0][2:])
+			yMin = t
+			yMax = t
+			morePieces := strings.Split(pieces[1][2:], "..")
+			xMin = utils.MustAtoi(morePieces[0])
+			xMax = utils.MustAtoi(morePieces[1])
+		}
+		for i := xMin; i <= xMax; i++ {
+			for j := yMin; j <= yMax; j++ {
+				g.Set(i, j, cell{l: true, r: true, c: '#'})
+			}
 		}
 	}
-}
 
-func isSolid(g *grids.Grid, x, y, dir int) bool {
-	for {
-		x += dir
-		if g.Get(x, y) == '#' {
-			return true
-		}
-		if g.Get(x, y+1) == '.' {
-			return false
+	yMin, yMax := g.SizeY()
+
+	g.Set(500, 0, cell{c: '|'})
+	putWater(g)
+
+	xMin, xMax := g.SizeX()
+	r := 0
+	for i := xMin; i <= xMax; i++ {
+		for j := yMin; j <= yMax; j++ {
+			if g.Get(i, j).(cell).c == '~' {
+				r++
+			}
 		}
 	}
+	return r
 }
 
-func fill(g *grids.Grid, x, y, dir int) {
-	for {
-		g.Set(x, y, '~')
-		x += dir
-		if g.Get(x, y) == '#' {
-			return
-		}
-	}
-}
+// I wanted to write a nifty recursive thing but I didn't find a clean way to handle some edge cases. I'll have
+// to lookup how others have done this. This implementation is super slow! The grid is implemented as a map, which
+// doesn't help...
+func putWater(g *grids.Grid) {
+	// grid to improve runtime
+	w := grids.NewGrid(false)
+	w.Set(500, 0, true)
 
-func overflow(g *grids.Grid, x, y, dir int) {
-	g.Set(x, y, '|')
-	for {
-		x += dir
-		if g.Get(x, y) == '#' {
-			return
+	done := false
+	for !done {
+		done = true
+		xMin, xMax := w.SizeX()
+		yMin, yMax := w.SizeY()
+		_, yMaxReal := g.SizeY()
+		for i := xMin - 1; i <= xMax+1; i++ {
+			for j := yMin; j <= yMax+1; j++ {
+				c := g.Get(i, j).(cell)
+				switch c.c {
+				case '|':
+					if j < yMaxReal && g.Get(i, j+1).(cell).c == '.' {
+						// propagate water downwards
+						g.Set(i, j+1, cell{c: '|'})
+						w.Set(i, j+1, true)
+						done = false
+					}
+					if !c.l && g.Get(i-1, j).(cell).l {
+						// propagate that left side is bounded
+						c.l = true
+						g.Set(i, j, c)
+						done = false
+					}
+					if !c.r && g.Get(i+1, j).(cell).r {
+						// propagate that right side is bounded
+						c.r = true
+						g.Set(i, j, c)
+						done = false
+					}
+					if c.l && c.r {
+						// convert to "solid" water
+						c.c = '~'
+						g.Set(i, j, c)
+						done = false
+					}
+				case '.':
+					// check that left side is | with solid under it
+					if g.Get(i-1, j).(cell).c == '|' && g.Get(i-1, j+1).(cell).l && g.Get(i-1, j+1).(cell).r {
+						g.Set(i, j, cell{c: '|'})
+						w.Set(i, j, true)
+						done = false
+					}
+
+					// same check for right side
+					if g.Get(i+1, j).(cell).c == '|' && g.Get(i+1, j+1).(cell).l && g.Get(i+1, j+1).(cell).r {
+						g.Set(i, j, cell{c: '|'})
+						w.Set(i, j, true)
+						done = false
+					}
+				}
+			}
 		}
-		g.Set(x, y, '|')
-		if g.Get(x, y+1) == '.' {
-			putWater(g, x, y+1)
-			return
+
+		for i := xMax + 1; i >= xMin-1; i-- {
+			for j := yMin; j <= yMax+1; j++ {
+				c := g.Get(i, j).(cell)
+				switch c.c {
+				case '|':
+					if j < yMaxReal && g.Get(i, j+1).(cell).c == '.' {
+						// propagate water downwards
+						g.Set(i, j+1, cell{c: '|'})
+						w.Set(i, j+1, true)
+						done = false
+					}
+					if !c.l && g.Get(i-1, j).(cell).l {
+						// propagate that left side is bounded
+						c.l = true
+						g.Set(i, j, c)
+						done = false
+					}
+					if !c.r && g.Get(i+1, j).(cell).r {
+						// propagate that right side is bounded
+						c.r = true
+						g.Set(i, j, c)
+						done = false
+					}
+					if c.l && c.r {
+						// convert to "solid" water
+						c.c = '~'
+						g.Set(i, j, c)
+						done = false
+					}
+				case '.':
+					// check that left side is | with solid under it
+					if g.Get(i-1, j).(cell).c == '|' && g.Get(i-1, j+1).(cell).l && g.Get(i-1, j+1).(cell).r {
+						g.Set(i, j, cell{c: '|'})
+						w.Set(i, j, true)
+						done = false
+					}
+
+					// same check for right side
+					if g.Get(i+1, j).(cell).c == '|' && g.Get(i+1, j+1).(cell).l && g.Get(i+1, j+1).(cell).r {
+						g.Set(i, j, cell{c: '|'})
+						w.Set(i, j, true)
+						done = false
+					}
+				}
+			}
 		}
 	}
 }

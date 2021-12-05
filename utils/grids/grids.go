@@ -97,6 +97,16 @@ func (g *Grid) PrintWithFormatter(formatter func(interface{}, int, int) rune) {
 	fmt.Println("")
 }
 
+func (g *Grid) PrintWithStringFormatter(formatter func(interface{}, int, int) string) {
+	for j := g.minY; j <= g.maxY; j++ {
+		for i := g.minX; i <= g.maxX; i++ {
+			fmt.Printf("%s ", formatter(g.Get(i, j), i, j))
+		}
+		fmt.Println("")
+	}
+	fmt.Println("")
+}
+
 func key(x, y int) string {
 	return fmt.Sprintf("%d:%d", x, y)
 }
