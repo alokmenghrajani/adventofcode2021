@@ -34,6 +34,16 @@ func IntMin(a, b int) int {
 	return b
 }
 
+func SliceMinMax(slice []int) (int, int) {
+	min := MaxInt
+	max := MinInt
+	for _, v := range slice {
+		min = IntMin(min, v)
+		max = IntMax(max, v)
+	}
+	return min, max
+}
+
 // Like strconv.Atoi but returns a default value on error
 func Atoi(s string, fallback int) int {
 	v, err := strconv.Atoi(s)

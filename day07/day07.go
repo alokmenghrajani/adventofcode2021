@@ -1,21 +1,13 @@
 package day07
 
 import (
-	"strings"
-
 	"github.com/alokmenghrajani/adventofcode2021/utils"
+	"github.com/alokmenghrajani/adventofcode2021/utils/inputs"
 )
 
 func Part1(input string) (int, int) {
-	min := utils.MaxInt
-	max := utils.MinInt
-	positions := []int{}
-	for _, pos := range strings.Split(input, ",") {
-		p := utils.MustAtoi(pos)
-		min = utils.IntMin(min, p)
-		max = utils.IntMax(max, p)
-		positions = append(positions, p)
-	}
+	positions := inputs.ToInts(input, ",")
+	min, max := utils.SliceMinMax(positions)
 
 	bestPos := -1
 	best := utils.MaxInt
@@ -34,15 +26,8 @@ func Part1(input string) (int, int) {
 }
 
 func Part2(input string) (int, int) {
-	min := utils.MaxInt
-	max := utils.MinInt
-	positions := []int{}
-	for _, pos := range strings.Split(input, ",") {
-		p := utils.MustAtoi(pos)
-		min = utils.IntMin(min, p)
-		max = utils.IntMax(max, p)
-		positions = append(positions, p)
-	}
+	positions := inputs.ToInts(input, ",")
+	min, max := utils.SliceMinMax(positions)
 
 	bestPos := -1
 	best := utils.MaxInt

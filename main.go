@@ -23,6 +23,7 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/day04"
 	"github.com/alokmenghrajani/adventofcode2021/day05"
 	"github.com/alokmenghrajani/adventofcode2021/day06"
+	"github.com/alokmenghrajani/adventofcode2021/day07"
 	"github.com/alokmenghrajani/adventofcode2021/utils"
 )
 
@@ -51,6 +52,11 @@ func main() {
 	case 6:
 		fmt.Printf("part 1: %d\n", day06.Part(utils.Readfile(2021, d), 80))
 		fmt.Printf("part 2: %d\n", day06.Part(utils.Readfile(2021, d), 256))
+	case 7:
+		_, fuel := day07.Part1(utils.Readfile(2021, d))
+		fmt.Printf("part 1: %d\n", fuel)
+		_, fuel = day07.Part2(utils.Readfile(2021, d))
+		fmt.Printf("part 2: %d\n", fuel)
 
 	// catching up on old events.
 	// TODO: move this into its own repo.
