@@ -17,6 +17,7 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day07"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day08"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day09"
+	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day10"
 	"github.com/alokmenghrajani/adventofcode2021/day01"
 	"github.com/alokmenghrajani/adventofcode2021/day02"
 	"github.com/alokmenghrajani/adventofcode2021/day03"
@@ -89,6 +90,11 @@ func main() {
 	case 201909:
 		fmt.Printf("part 1: %s\n", year2019day09.Part(utils.Readfile(2019, 9), "1"))
 		fmt.Printf("part 1: %s\n", year2019day09.Part(utils.Readfile(2019, 9), "2"))
+	case 201910:
+		x, y, v := year2019day10.Part1(utils.Readfile(2019, 10))
+		fmt.Printf("part 1: %d\n", v)
+		_, _, v = year2019day10.Part2(utils.Readfile(2019, 10), x, y, 200)
+		fmt.Printf("part 2: %d\n", v)
 	case 201806:
 		fmt.Printf("part 1: %d\n", year2018day06.Part1(utils.Readfile(2018, 6)))
 		fmt.Printf("part 2: %d\n", year2018day06.Part2(utils.Readfile(2018, 6)))

@@ -186,3 +186,17 @@ func Abs(x int) int {
 	}
 	return x
 }
+
+func Gcd(x, y int) int {
+	if x <= 0 || y <= 0 {
+		panic(fmt.Errorf("invalid input: %d, %d", x, y))
+	}
+	if x == y {
+		return x
+	}
+	if x > y {
+		return Gcd(x-y, y)
+	} else {
+		return Gcd(x, y-x)
+	}
+}
