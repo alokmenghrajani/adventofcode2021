@@ -1,0 +1,3 @@
+[submodule "day08/go-z3"]
+	path = day08/go-z3
+	url = https://github.com/mitchellh/go-z3.git

@@ -33,6 +33,10 @@ func (g *Grid) SizeY() (int, int) {
 	return g.minY, g.maxY
 }
 
+func (g *Grid) Visited() int {
+	return len(g.data)
+}
+
 func (g *Grid) Get(x, y int) interface{} {
 	k := key(x, y)
 	v, ok := g.data[k]
