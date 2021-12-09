@@ -200,3 +200,13 @@ func Gcd(x, y int) int {
 		return Gcd(x, y-x)
 	}
 }
+
+func Sign(x int) int {
+	if x < 0 {
+		return -1
+	} else if x > 0 {
+		return 1
+	} else {
+		return 0
+	}
+}
