@@ -21,6 +21,7 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day11"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day12"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day13"
+	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day14"
 	"github.com/alokmenghrajani/adventofcode2021/day01"
 	"github.com/alokmenghrajani/adventofcode2021/day02"
 	"github.com/alokmenghrajani/adventofcode2021/day03"
@@ -30,6 +31,7 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/day07"
 	"github.com/alokmenghrajani/adventofcode2021/day08"
 	"github.com/alokmenghrajani/adventofcode2021/day09"
+	"github.com/alokmenghrajani/adventofcode2021/day10"
 	"github.com/alokmenghrajani/adventofcode2021/utils"
 )
 
@@ -73,6 +75,9 @@ func main() {
 	case 9:
 		fmt.Printf("part 1: %d\n", day09.Part1(utils.Readfile(2021, d)))
 		fmt.Printf("part 2: %d\n", day09.Part2(utils.Readfile(2021, d)))
+	case 10:
+		fmt.Printf("part 1: %d\n", day10.Part1(utils.Readfile(2021, d)))
+		fmt.Printf("part 2: %d\n", day10.Part2(utils.Readfile(2021, d)))
 
 	// catching up on old events.
 	// TODO: move this into its own repo.
@@ -121,6 +126,9 @@ func main() {
 		fmt.Printf("part 1: %d\n", year2019day13.Part1(utils.Readfile(2019, 13)))
 		fmt.Println("part 2")
 		year2019day13.Part2(utils.Readfile(2019, 13))
+	case 201914:
+		fmt.Printf("part 1: %d\n", year2019day14.Part1(utils.Readfile(2019, 14)))
+		fmt.Printf("part 2: %d\n", year2019day14.Part2(utils.Readfile(2019, 14)))
 	case 201806:
 		fmt.Printf("part 1: %d\n", year2018day06.Part1(utils.Readfile(2018, 6)))
 		fmt.Printf("part 2: %d\n", year2018day06.Part2(utils.Readfile(2018, 6)))
