@@ -22,6 +22,7 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day12"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day13"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day14"
+	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day15"
 	"github.com/alokmenghrajani/adventofcode2021/day01"
 	"github.com/alokmenghrajani/adventofcode2021/day02"
 	"github.com/alokmenghrajani/adventofcode2021/day03"
@@ -129,6 +130,9 @@ func main() {
 	case 201914:
 		fmt.Printf("part 1: %d\n", year2019day14.Part1(utils.Readfile(2019, 14)))
 		fmt.Printf("part 2: %d\n", year2019day14.Part2(utils.Readfile(2019, 14)))
+	case 201915:
+		fmt.Printf("part 1: %d\n", year2019day15.Part1(utils.Readfile(2019, 15)))
+		//		fmt.Printf("part 2: %d\n", year2019day15.Part2(utils.Readfile(2019, 15)))
 	case 201806:
 		fmt.Printf("part 1: %d\n", year2018day06.Part1(utils.Readfile(2018, 6)))
 		fmt.Printf("part 2: %d\n", year2018day06.Part2(utils.Readfile(2018, 6)))
@@ -149,7 +153,7 @@ func main() {
 // Reads day from os.Args.
 func day() int {
 	if len(os.Args) == 1 {
-		return 201911
+		return 201915
 	}
 	day := utils.Atoi(os.Args[1], -1)
 	return day
