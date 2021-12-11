@@ -37,7 +37,9 @@ func Part1(program string) int {
 	for {
 		// find the closest '?' from 0, 0
 		target := find(g)
-
+		if target == nil {
+			panic("meh")
+		}
 		// find path to target
 		next := path(g, current, target)
 		if next == nil {
@@ -69,6 +71,100 @@ func Part1(program string) int {
 			return next.d
 		}
 	}
+}
+
+func Part2(program string) int {
+	g := grids.NewGrid(&cell{v: '?', x: utils.MinInt, y: utils.MinInt, d: utils.MaxInt, toOrigin: nil})
+
+	current := &cell{v: '.', x: 0, y: 0, d: 0, toOrigin: nil}
+	g.Set(0, 0, current)
+
+	in := make(chan int)
+	out := make(chan int)
+	newIntCode(program, in, out)
+
+	var oxygen *cell
+	for {
+		// find the closest '?' from 0, 0
+		target := find(g)
+		if target == nil {
+			// we are done mapping
+			break
+		}
+
+		// find path to target
+		next := path(g, current, target)
+		if next == nil {
+			panic(":(")
+		}
+		if next.x == current.x-1 {
+			in <- 3
+		} else if next.x == current.x+1 {
+			in <- 4
+		} else if next.y == current.y-1 {
+			in <- 1
+		} else if next.y == current.y+1 {
+			in <- 2
+		}
+
+		r, ok := <-out
+		if !ok {
+			panic("meh")
+		}
+
+		switch r {
+		case 0:
+			next.v = '#'
+		case 1:
+			next.v = '.'
+			current = next
+		case 2:
+			next.v = '.'
+			oxygen = next
+			current = next
+		}
+	}
+
+	// compute distance from oxygen to all other cells
+	xMin, xMax := g.SizeX()
+	yMin, yMax := g.SizeY()
+	for i := xMin; i <= xMax; i++ {
+		for j := yMin; j <= yMax; j++ {
+			c := g.Get(i, j).(*cell)
+			c.d = utils.MaxInt
+		}
+	}
+
+	oxygen.d = 0
+	queue := []*cell{oxygen}
+	last := 0
+	for len(queue) > 0 {
+		head := queue[0]
+		last = utils.IntMax(last, head.d)
+		queue = queue[1:]
+		t := g.Get(head.x-1, head.y).(*cell)
+		if t.v == '.' && head.d+1 < t.d {
+			t.d = head.d + 1
+			queue = append(queue, t)
+		}
+		t = g.Get(head.x+1, head.y).(*cell)
+		if t.v == '.' && head.d+1 < t.d {
+			t.d = head.d + 1
+			queue = append(queue, t)
+		}
+		t = g.Get(head.x, head.y-1).(*cell)
+		if t.v == '.' && head.d+1 < t.d {
+			t.d = head.d + 1
+			queue = append(queue, t)
+		}
+		t = g.Get(head.x, head.y+1).(*cell)
+		if t.v == '.' && head.d+1 < t.d {
+			t.d = head.d + 1
+			queue = append(queue, t)
+		}
+	}
+
+	return last
 }
 
 func find(g *grids.Grid) *cell {
@@ -126,7 +222,7 @@ func find(g *grids.Grid) *cell {
 		}
 	}
 	if bestDistance == utils.MaxInt {
-		panic("meh")
+		return nil
 	}
 
 	c := &cell{v: '?', x: bestX, y: bestY, d: bestDistance, toOrigin: bestFrom}
