@@ -22,8 +22,8 @@ func ToGrid(input string, empty interface{}) *grids.Grid {
 	grid := grids.NewGrid(empty)
 
 	for y, line := range strings.Split(input, "\n") {
-		for x, rune := range line {
-			grid.Set(x, y, rune)
+		for x, r := range line {
+			grid.Set(x, y, r)
 		}
 	}
 
