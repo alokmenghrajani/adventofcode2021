@@ -197,6 +197,7 @@ func main() {
 		fmt.Printf("part 2: %d\n", year2019day23.Part2(utils.Readfile(2019, 23)))
 	case 201924:
 		fmt.Printf("part 1: %d\n", year2019day24.Part1(utils.Readfile(2019, 24)))
+		fmt.Printf("part 2: %d\n", year2019day24.Part2(utils.Readfile(2019, 24), 200))
 	case 201925:
 		fmt.Printf("part 1: %d\n", year2019day25.Part1(utils.Readfile(2019, 25)))
 

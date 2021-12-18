@@ -13,3 +13,11 @@ func TestPart1(t *testing.T) {
 ..#..
 #....`))
 }
+
+func TestPart2(t *testing.T) {
+	assert.Equal(t, 99, Part2(`....#
+#..#.
+#..##
+..#..
+#....`, 10))
+}
