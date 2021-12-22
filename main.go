@@ -27,6 +27,7 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day17"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day18"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day19"
+	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day20"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day21"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day22"
 	"github.com/alokmenghrajani/adventofcode2021/2019/year2019day23"
@@ -50,6 +51,10 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/day16"
 	"github.com/alokmenghrajani/adventofcode2021/day17"
 	"github.com/alokmenghrajani/adventofcode2021/day18"
+	"github.com/alokmenghrajani/adventofcode2021/day19"
+	"github.com/alokmenghrajani/adventofcode2021/day20"
+	"github.com/alokmenghrajani/adventofcode2021/day21"
+	"github.com/alokmenghrajani/adventofcode2021/day22"
 	"github.com/alokmenghrajani/adventofcode2021/utils"
 )
 
@@ -121,6 +126,18 @@ func main() {
 	case 18:
 		fmt.Printf("part 1: %d\n", day18.Part1(utils.Readfile(2021, d)))
 		fmt.Printf("part 2: %d\n", day18.Part2(utils.Readfile(2021, d)))
+	case 19:
+		fmt.Printf("part 1: %d\n", day19.Part1(utils.Readfile(2021, d)))
+		fmt.Printf("part 2: %d\n", day19.Part2(utils.Readfile(2021, d)))
+	case 20:
+		fmt.Printf("part 1: %d\n", day20.Part(utils.Readfile(2021, d), 2))
+		fmt.Printf("part 1: %d\n", day20.Part(utils.Readfile(2021, d), 50))
+	case 21:
+		fmt.Printf("part 1: %d\n", day21.Part1(utils.Readfile(2021, d)))
+		fmt.Printf("part 2: %d\n", day21.Part2(utils.Readfile(2021, d)))
+	case 22:
+		fmt.Printf("part 1: %d\n", day22.Part1(utils.Readfile(2021, d)))
+		fmt.Printf("part 2: %d\n", day22.Part2(utils.Readfile(2021, d)))
 
 	// catching up on old events.
 	// TODO: move this into its own repo.
@@ -186,6 +203,8 @@ func main() {
 	case 201919:
 		fmt.Printf("part 1: %d\n", year2019day19.Part1(utils.Readfile(2019, 19)))
 		fmt.Printf("part 2: %d\n", year2019day19.Part2(utils.Readfile(2019, 19)))
+	case 201920:
+		fmt.Printf("part 1: %d\n", year2019day20.Part1(utils.Readfile(2019, 20)))
 	case 201921:
 		fmt.Printf("part 1: %d\n", year2019day21.Part1(utils.Readfile(2019, 21)))
 		fmt.Printf("part 2: %d\n", year2019day21.Part2(utils.Readfile(2019, 21)))
@@ -221,7 +240,7 @@ func main() {
 // Reads day from os.Args.
 func day() int {
 	if len(os.Args) == 1 {
-		return 201923
+		return 20
 	}
 	day := utils.Atoi(os.Args[1], -1)
 	return day
