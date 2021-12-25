@@ -55,6 +55,9 @@ import (
 	"github.com/alokmenghrajani/adventofcode2021/day20"
 	"github.com/alokmenghrajani/adventofcode2021/day21"
 	"github.com/alokmenghrajani/adventofcode2021/day22"
+	"github.com/alokmenghrajani/adventofcode2021/day23"
+	"github.com/alokmenghrajani/adventofcode2021/day24"
+	"github.com/alokmenghrajani/adventofcode2021/day25"
 	"github.com/alokmenghrajani/adventofcode2021/utils"
 )
 
@@ -138,6 +141,13 @@ func main() {
 	case 22:
 		fmt.Printf("part 1: %d\n", day22.Part1(utils.Readfile(2021, d)))
 		fmt.Printf("part 2: %d\n", day22.Part2(utils.Readfile(2021, d)))
+	case 23:
+		fmt.Printf("part 1: %d\n", day23.Run1(utils.Readfile(2021, d)))
+	case 24:
+		fmt.Printf("part 1: %d\n", day24.Part1(utils.Readfile(2021, d)))
+		fmt.Printf("part 2: %d\n", day24.Part2(utils.Readfile(2021, d)))
+	case 25:
+		fmt.Printf("part 1: %d\n", day25.Part1(utils.Readfile(2021, d)))
 
 	// catching up on old events.
 	// TODO: move this into its own repo.
@@ -240,7 +250,7 @@ func main() {
 // Reads day from os.Args.
 func day() int {
 	if len(os.Args) == 1 {
-		return 20
+		return 23
 	}
 	day := utils.Atoi(os.Args[1], -1)
 	return day
