@@ -18,6 +18,7 @@ func PanicOnErr(err error) {
 }
 
 const MaxInt = int(^uint(0) >> 1)
+const MaxUint = ^uint(0)
 const MinInt = ^MaxInt
 
 func IntMax(a, b int) int {
